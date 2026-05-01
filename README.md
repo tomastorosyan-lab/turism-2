@@ -69,7 +69,7 @@ Workflow: `.github/workflows/deploy-production.yml`
 
 Что делает:
 - обновляет только `abkhaziatrip.ru` на сервере;
-- выполняет `git fetch` и `git pull --ff-only origin main` в `/opt/abkhaziatrip.ru`;
+- выполняет `git fetch` и **`git reset --hard origin/main`** в `/opt/abkhaziatrip.ru` (локальные коммиты только на сервере сотрутся; эталон — GitHub `main`);
 - перезапускает только второй сервис через `docker compose up -d --build`;
 - проверяет, что `abkhazhub.ru` отвечает.
 
@@ -98,7 +98,7 @@ Workflow: `.github/workflows/deploy-production.yml`
    Откройте лог шага **«Deploy on server via SSH»** (там полный вывод скрипта).
 2. **Секреты** — верны ли `VDS_*` (хост, пользователь, пароль, порт). Смена пароля на VDS ломает вход без обновления secret.
 3. **SSH** — не отключён ли вход по паролю для выбранного пользователя; при ключах-only нужен другой способ (ключ в secret, другой action).
-4. **Шаг 4 (git)** — сообщение `fatal: Not possible to fast-forward` или расхождение с GitHub: на сервере вручную синхронизировать с `main` (например `git fetch origin && git reset --hard origin/main`), не меняя каталоги и nginx **hub**.
+4. **Шаг 4 (git)** — если меняли код только на сервере, он перезапишется при деплое (`reset --hard`); держите изменения в GitHub.
 5. **Шаг 3 (bare fetch)** — для **приватного** репозитория `git fetch https://github.com/...` с сервера может требовать токен/credential; публичный репозиторий работает без них.
 6. **Шаг 5 (docker)** — в `/opt/abkhaziatrip.ru` должен быть `docker-compose.yml`; команда запускается из этого каталога.
 7. **Шаг 6–7** — `nginx -t`, `curl` к https://abkhaziatrip.ru и https://abkhazhub.ru; падение curl по hub означает проблему с hub или сетью, не продолжайте правки hub из этого workflow.

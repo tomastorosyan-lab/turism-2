@@ -42,14 +42,14 @@ jobs:
             echo "[3/8] Update bare repo from GitHub"
             git -C "$GIT_BARE_DIR" fetch "https://github.com/${{ github.repository }}.git" main:main
 
-            echo "[4/8] Git-flow in worktree"
+            echo "[4/8] Git-flow in worktree (выровнять под GitHub main)"
             cd "$PROJECT_DIR"
             git fetch origin
             git status -sb
             git branch --show-current
             git log -1 --oneline origin/main || true
-            # Явный pull без настройки upstream (иначе падает rev-parse @{u} и голый pull).
-            git pull --ff-only origin main
+            # ff-only ломается при расходящейся истории на сервере; эталон — origin/main.
+            git reset --hard origin/main
 
             echo "[5/8] Restart only abkhaziatrip service"
             docker compose up -d --build
