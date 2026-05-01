@@ -33,9 +33,10 @@ export default function RequestPage() {
 
   return (
     <div className="grid gap-6">
-      <h1 className="text-3xl font-semibold text-pine-900">Подбор тура в Абхазию</h1>
+      <h1 className="text-3xl font-semibold text-pine-900">Заявка на подбор тура в Абхазию</h1>
       <p className="max-w-2xl text-sm text-pine-700">
-        Заполните форму, и менеджер подберет варианты по бюджету, датам и формату отдыха.
+        Заполните форму на abkhaziatrip.ru — менеджер AbkhaziaTrip подберёт варианты по бюджету, датам и формату отдыха
+        для туристов из России.
       </p>
 
       <form onSubmit={onSubmit} className="grid gap-4 rounded-xl border border-pine-100 bg-white p-5">

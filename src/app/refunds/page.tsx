@@ -1,6 +1,10 @@
-export const metadata = {
-  title: "Отмены и возвраты - AbkhaziaTrip",
-  description: "Условия отмены и возврата по заявкам и подтвержденным бронированиям.",
+import type { Metadata } from "next";
+import { SITE_NAME, SITE_URL } from "@/lib/brand";
+
+export const metadata: Metadata = {
+  title: "Отмены и возвраты",
+  description: `Условия отмены и возврата по заявкам ${SITE_NAME} — abkhaziatrip.ru.`,
+  alternates: { canonical: `${SITE_URL}/refunds` },
 };
 
 export default function RefundsPage() {

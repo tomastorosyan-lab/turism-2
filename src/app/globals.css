@@ -4,20 +4,26 @@
   --background: #ffffff;
   --foreground: #163a2c;
   --pine-900: #163a2c;
+  --pine-800: #1a4536;
   --pine-700: #1f5a44;
   --pine-600: #2a6d52;
   --pine-100: #e9f3ef;
+  --radius-card: 1rem;
+  --radius-pill: 9999px;
+  --shadow-soft: 0 1px 2px rgb(22 58 44 / 0.06), 0 8px 28px rgb(22 58 44 / 0.08);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-pine-900: var(--pine-900);
+  --color-pine-800: var(--pine-800);
   --color-pine-700: var(--pine-700);
   --color-pine-600: var(--pine-600);
   --color-pine-100: var(--pine-100);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --radius-xl: var(--radius-card);
 }
 
 * {

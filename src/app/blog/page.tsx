@@ -1,10 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { blogPosts } from "@/lib/data";
+import { SITE_NAME, SITE_URL } from "@/lib/brand";
 
-export const metadata = {
-  title: "Гид по Абхазии - AbkhaziaTrip",
-  description:
-    "Полезные материалы о курортах, отелях, сезоне, ценах и подборе туров в Абхазию.",
+export const metadata: Metadata = {
+  title: "Гид по Абхазии",
+  description: `Материалы ${SITE_NAME} о курортах, отелях, сезоне и турах в Абхазию — abkhaziatrip.ru.`,
+  alternates: { canonical: `${SITE_URL}/blog` },
 };
 
 export default function BlogPage() {

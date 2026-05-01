@@ -1,10 +1,24 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { blogPosts } from "@/lib/data";
 import { notFound } from "next/navigation";
+import { SITE_NAME, SITE_URL } from "@/lib/brand";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPosts.find((item) => item.slug === slug);
+  if (!post) return { title: "Материал не найден" };
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
+    openGraph: { title: post.title, description: post.excerpt, siteName: SITE_NAME, locale: "ru_RU" },
+  };
+}
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/header";
+import { SiteHeader } from "@/components/site-header";
 import { Footer } from "@/components/footer";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_OG_DESCRIPTION, SITE_URL } from "@/lib/brand";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,16 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AbkhaziaTrip - Туры в Абхазию",
-  description:
-    "Сервис подбора туров в Абхазию: туры, отели, поддержка менеджера и прозрачные условия.",
-  metadataBase: new URL("https://abkhaziatrip.ru"),
+  title: { default: `${SITE_NAME} — туры и отдых в Абхазии для туристов из России`, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
   openGraph: {
-    title: "AbkhaziaTrip - Туры в Абхазию",
-    description:
-      "Подбор туров в Абхазию с прозрачной ценой, поддержкой менеджера и контролем статуса заявки.",
-    url: "https://abkhaziatrip.ru",
-    siteName: "AbkhaziaTrip",
+    title: `${SITE_NAME} — туры и отдых в Абхазии`,
+    description: SITE_OG_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: "ru_RU",
     type: "website",
   },
@@ -40,9 +39,9 @@ export default function RootLayout({
       lang="ru"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white text-pine-900">
-        <Header />
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">{children}</main>
+      <body className="min-h-full flex flex-col bg-zinc-100 text-zinc-900 antialiased">
+        <SiteHeader />
+        <main className="mx-auto w-full max-w-[1320px] flex-1 px-4 py-6 md:px-6 md:py-8">{children}</main>
         <Footer />
       </body>
     </html>

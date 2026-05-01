@@ -1,6 +1,10 @@
-export const metadata = {
-  title: "Публичная оферта - AbkhaziaTrip",
-  description: "Публичная оферта сервиса подбора туров в Абхазию.",
+import type { Metadata } from "next";
+import { SITE_NAME, SITE_URL } from "@/lib/brand";
+
+export const metadata: Metadata = {
+  title: "Публичная оферта",
+  description: `Публичная оферта ${SITE_NAME} — условия сервиса подбора туров в Абхазию на abkhaziatrip.ru.`,
+  alternates: { canonical: `${SITE_URL}/oferta` },
 };
 
 export default function OfertaPage() {

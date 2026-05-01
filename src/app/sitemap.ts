@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 import { blogPosts, resorts } from "@/lib/data";
+import { SITE_URL } from "@/lib/brand";
 
-const base = "https://abkhaziatrip.ru";
+const base = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/tury-abkhazia",
+    "/otdyh-abkhazia",
     "/oteli-abkhazia",
     "/zayavka",
     "/blog",

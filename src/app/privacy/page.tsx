@@ -1,6 +1,10 @@
-export const metadata = {
-  title: "Политика конфиденциальности - AbkhaziaTrip",
-  description: "Политика обработки персональных данных сервиса AbkhaziaTrip.",
+import type { Metadata } from "next";
+import { SITE_NAME, SITE_URL } from "@/lib/brand";
+
+export const metadata: Metadata = {
+  title: "Политика обработки персональных данных",
+  description: `Политика ПДн ${SITE_NAME} — abkhaziatrip.ru.`,
+  alternates: { canonical: `${SITE_URL}/privacy` },
 };
 
 export default function PrivacyPage() {

@@ -161,6 +161,23 @@ export function formatRub(value: number): string {
   }).format(value);
 }
 
+/** Короткая строка для витрины: «12,5 тыс. продано». */
+export function formatApproxSold(n: number): string {
+  const dec = (x: number) => String(x).replace(".", ",");
+  if (n >= 1_000_000) {
+    const v = n / 1_000_000;
+    return `${dec(v >= 10 ? Math.round(v) : Math.round(v * 10) / 10)} млн продано`;
+  }
+  if (n >= 10_000) {
+    const v = n / 1000;
+    return `${dec(v >= 100 ? Math.round(v) : Math.round(v * 10) / 10)} тыс. продано`;
+  }
+  if (n >= 1000) {
+    return `${dec(Math.round(n / 100) / 10)} тыс. продано`;
+  }
+  return `${n} продано`;
+}
+
 export function audienceLabel(audience: Tour["audience"]): string {
   if (audience === "budget") return "Бюджетный";
   if (audience === "family") return "Семейный";
