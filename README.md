@@ -2,6 +2,19 @@
 
 Локальный full-stack каркас сервиса подбора туров в Абхазию.
 
+## Каноника (постоянно)
+
+- **Один источник правды в Git:** [tomastorosyan-lab/turism-2](https://github.com/tomastorosyan-lab/turism-2), ветка **`main`**.
+- **Локальная разработка** — содержимое этого репозитория (корень = Next.js-платформа); после `git push origin main` на GitHub должен быть тот же код, что и у вас локально.
+- **Продакшен** — рабочая копия на сервере **`/opt/abkhaziatrip.ru`**, обновляется только через **`.github/workflows/deploy-production.yml`** (SSH + `git pull` + `docker compose`). Путь **`/opt/turism`** и workflow **`deploy-prod.yml`** из старой схемы **не используются** — не возвращайте их, чтобы снова не разъехались Git и прод.
+- **abkhazhub.ru** workflow только проверяет доступность и фрагменты nginx-конфига, каталоги hub не трогает.
+
+```bash
+git remote add origin https://github.com/tomastorosyan-lab/turism-2.git
+# уже добавлен — проверка: git remote -v
+git push -u origin main
+```
+
 ## Что реализовано
 
 - Публичный сайт:
@@ -56,7 +69,7 @@ Workflow: `.github/workflows/deploy-production.yml`
 
 Что делает:
 - обновляет только `abkhaziatrip.ru` на сервере;
-- выполняет `git fetch/status/branch/pull --ff-only` в `/opt/abkhaziatrip.ru`;
+- выполняет `git fetch` и `git pull --ff-only origin main` в `/opt/abkhaziatrip.ru`;
 - перезапускает только второй сервис через `docker compose up -d --build`;
 - проверяет, что `abkhazhub.ru` отвечает.
 
