@@ -16,7 +16,7 @@ export function Header() {
     <header className="border-b border-pine-100 bg-white">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
         <Link href="/" className="text-xl font-semibold text-pine-900">
-          AbkhaziaTrip
+          abkhaziatrip
         </Link>
         <nav className="flex flex-wrap items-center gap-4 text-sm text-pine-700">
           {links.map((link) => (
