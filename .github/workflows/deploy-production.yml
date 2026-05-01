@@ -1,0 +1,63 @@
+name: Deploy Production
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PROJECT_DIR: /opt/abkhaziatrip.ru
+      GIT_BARE_DIR: /opt/git/abkhaziatrip.git
+      NGINX_TRIP_CONF: /etc/nginx/sites-available/abkhaziatrip.conf
+      NGINX_HUB_CONF: /etc/nginx/sites-available/abkhazhub.conf
+    steps:
+      - name: Deploy on server via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VDS_HOST }}
+          username: ${{ secrets.VDS_USER }}
+          password: ${{ secrets.VDS_PASSWORD }}
+          port: ${{ secrets.VDS_PORT }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+
+            echo "[1/8] Safety checks: required paths"
+            test -d "$PROJECT_DIR"
+            test -d "$GIT_BARE_DIR"
+            test -f "$NGINX_TRIP_CONF"
+            test -f "$NGINX_HUB_CONF"
+
+            echo "[2/8] Safety checks: hub config unchanged"
+            grep -q "server_name abkhazhub.ru" "$NGINX_HUB_CONF"
+            grep -q "127.0.0.1:3000" "$NGINX_HUB_CONF"
+            grep -q "127.0.0.1:8000" "$NGINX_HUB_CONF"
+
+            echo "[3/8] Update bare repo from GitHub"
+            git -C "$GIT_BARE_DIR" fetch "https://github.com/${{ github.repository }}.git" main:main
+
+            echo "[4/8] Git-flow in worktree"
+            cd "$PROJECT_DIR"
+            git fetch
+            git status -sb
+            git branch --show-current
+            git rev-parse --abbrev-ref --symbolic-full-name @{u}
+            git pull --ff-only
+
+            echo "[5/8] Restart only abkhaziatrip service"
+            docker compose up -d --build
+
+            echo "[6/8] Nginx validation"
+            nginx -t
+            systemctl reload nginx
+
+            echo "[7/8] Health checks"
+            curl -fsSI https://abkhazhub.ru >/dev/null
+            curl -fsSI https://abkhaziatrip.ru >/dev/null
+
+            echo "[8/8] Runtime status"
+            docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"

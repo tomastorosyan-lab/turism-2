@@ -49,3 +49,19 @@ docker compose up --build
 ```
 
 Открыть: [http://localhost:3001](http://localhost:3001)
+
+## CI/CD: GitHub Actions deploy
+
+Workflow: `.github/workflows/deploy-production.yml`
+
+Что делает:
+- обновляет только `abkhaziatrip.ru` на сервере;
+- выполняет `git fetch/status/branch/pull --ff-only` в `/opt/abkhaziatrip.ru`;
+- перезапускает только второй сервис через `docker compose up -d --build`;
+- проверяет, что `abkhazhub.ru` отвечает.
+
+Нужные secrets в GitHub repository:
+- `VDS_HOST` (пример: `178.212.12.157`)
+- `VDS_USER` (пример: `root`)
+- `VDS_PASSWORD`
+- `VDS_PORT` (пример: `22`)
