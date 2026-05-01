@@ -7,6 +7,8 @@ on:
 
 jobs:
   deploy:
+    # Прод только с ветки main (push или ручной запуск с выбранной веткой main).
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -42,11 +44,12 @@ jobs:
 
             echo "[4/8] Git-flow in worktree"
             cd "$PROJECT_DIR"
-            git fetch
+            git fetch origin
             git status -sb
             git branch --show-current
-            git rev-parse --abbrev-ref --symbolic-full-name @{u}
-            git pull --ff-only
+            git log -1 --oneline origin/main || true
+            # Явный pull без настройки upstream (иначе падает rev-parse @{u} и голый pull).
+            git pull --ff-only origin main
 
             echo "[5/8] Restart only abkhaziatrip service"
             docker compose up -d --build

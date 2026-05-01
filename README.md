@@ -65,3 +65,27 @@ Workflow: `.github/workflows/deploy-production.yml`
 - `VDS_USER` (пример: `root`)
 - `VDS_PASSWORD`
 - `VDS_PORT` (пример: `22`)
+
+### Задуманная схема на сервере (не трогает abkhazhub)
+
+| Что | Значение |
+|-----|----------|
+| Рабочая копия | `/opt/abkhaziatrip.ru` |
+| Bare-репозиторий | `/opt/git/abkhaziatrip.git` |
+| Конфиг nginx trip | `/etc/nginx/sites-available/abkhaziatrip.conf` |
+| Проверка изоляции | в конфиге hub должны быть `abkhazhub.ru`, `127.0.0.1:3000`, `127.0.0.1:8000` |
+| Контейнер | `docker compose up -d --build` из каталога проекта (файл `docker-compose.yml`) |
+| Прод-ветка | только `main` (job не запускается с другой ветки) |
+
+Артефакт деплоя — собранный Docker-образ сервиса `web` на порту **3001**; nginx на хосте проксирует на этот порт (см. конфиг на сервере).
+
+### Если CI «сломался» — что проверить
+
+1. **GitHub → Actions → Deploy Production → красный шаг**  
+   Откройте лог шага **«Deploy on server via SSH»** (там полный вывод скрипта).
+2. **Секреты** — верны ли `VDS_*` (хост, пользователь, пароль, порт). Смена пароля на VDS ломает вход без обновления secret.
+3. **SSH** — не отключён ли вход по паролю для выбранного пользователя; при ключах-only нужен другой способ (ключ в secret, другой action).
+4. **Шаг 4 (git)** — сообщение `fatal: Not possible to fast-forward` или расхождение с GitHub: на сервере вручную синхронизировать с `main` (например `git fetch origin && git reset --hard origin/main`), не меняя каталоги и nginx **hub**.
+5. **Шаг 3 (bare fetch)** — для **приватного** репозитория `git fetch https://github.com/...` с сервера может требовать токен/credential; публичный репозиторий работает без них.
+6. **Шаг 5 (docker)** — в `/opt/abkhaziatrip.ru` должен быть `docker-compose.yml`; команда запускается из этого каталога.
+7. **Шаг 6–7** — `nginx -t`, `curl` к https://abkhaziatrip.ru и https://abkhazhub.ru; падение curl по hub означает проблему с hub или сетью, не продолжайте правки hub из этого workflow.
