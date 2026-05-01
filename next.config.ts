@@ -1,14 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "extraguide.ru", pathname: "/**" },
-      { protocol: "https", hostname: "avatars.mds.yandex.net", pathname: "/**" },
-      { protocol: "https", hostname: "intourist.ru", pathname: "/**" },
-      { protocol: "https", hostname: "moya-planeta.ru", pathname: "/**" },
-    ],
-  },
+  /* обложки курортов — локальные файлы в /public/images/resorts */
 };
 
 export default nextConfig;

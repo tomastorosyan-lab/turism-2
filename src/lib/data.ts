@@ -16,7 +16,7 @@ export type Resort = {
   name: string;
   short: string;
   highlights: string[];
-  /** Обложка курорта (внешний URL; домены разрешены в next.config). */
+  /** Обложка курорта (статика в /public, напр. /images/resorts/...). */
   coverImage: string;
   coverImageAlt: string;
 };
@@ -90,8 +90,7 @@ export const resorts: Resort[] = [
     name: "Гагра",
     short: "Курорт с развитой инфраструктурой и широкой линейкой отелей.",
     highlights: ["Пляжи и набережная", "Семейные отели", "Удобная логистика"],
-    coverImage:
-      "https://intourist.ru/excursion-files/f/f9/f964505e5ffa4b73b09e0627c2cce046.jpg",
+    coverImage: "/images/resorts/gagra.jpg",
     coverImageAlt:
       "Гагра, Абхазия: историческое здание Гагрипш среди пальм и субтропической растительности",
   },
@@ -100,8 +99,7 @@ export const resorts: Resort[] = [
     name: "Пицунда",
     short: "Тихий курорт для спокойного отдыха и природных локаций.",
     highlights: ["Сосновые рощи", "Чистое море", "Спокойный формат отдыха"],
-    coverImage:
-      "https://moya-planeta.ru/upload/images/xl/64/63/646337637e2282411885c4c99ca4b3d97e098761.jpg",
+    coverImage: "/images/resorts/pitsunda.jpg",
     coverImageAlt:
       "Пицунда, Абхазия: вид на мыс, пляж, сосновый лес и курортную застройку с высоты",
   },
@@ -110,8 +108,7 @@ export const resorts: Resort[] = [
     name: "Сухум",
     short: "Городской формат отдыха с выбором премиальных и business-решений.",
     highlights: ["Городская инфраструктура", "Рестораны и сервис", "Premium-опции"],
-    coverImage:
-      "https://extraguide.ru/images/sp/c337a484b1add806927df6661f26b3998a183b5d.jpg",
+    coverImage: "/images/resorts/sukhum.jpg",
     coverImageAlt:
       "Сухум, Абхазия: панорама города, набережная Чёрного моря и горы на горизонте",
   },
@@ -120,8 +117,7 @@ export const resorts: Resort[] = [
     name: "Новый Афон",
     short: "Комбинация природы, достопримечательностей и спокойного темпа.",
     highlights: ["Культурные объекты", "Природные маршруты", "Семейный формат"],
-    coverImage:
-      "https://avatars.mds.yandex.net/i?id=6d58e4477e30857dc6b71e384ce7b721_l-10972138-images-thumbs&n=13",
+    coverImage: "/images/resorts/new-afon.jpg",
     coverImageAlt:
       "Новый Афон, Абхазия: павильон станции Псырцха у реки среди субтропической растительности",
   },
