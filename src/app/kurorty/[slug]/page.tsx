@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { formatRub, resorts } from "@/lib/data";
@@ -20,6 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `Отдых и туры — ${resort.name}`,
     description: `Курорт ${resort.name}: туры и отели в Абхазии через ${SITE_NAME}. Подбор на abkhaziatrip.ru.`,
     alternates: { canonical: `${SITE_URL}/kurorty/${slug}` },
+    openGraph: {
+      images: [{ url: resort.coverImage, alt: resort.coverImageAlt }],
+    },
   };
 }
 
@@ -35,18 +39,31 @@ export default async function ResortPage({ params }: Props) {
 
   return (
     <div className="grid gap-10">
-      <header className="max-w-3xl">
-        <p className="text-xs font-semibold uppercase tracking-wider text-pine-600">
-          {SITE_NAME} · Курорты Абхазии
-        </p>
-        <h1 className="mt-2 text-3xl font-semibold text-pine-900 md:text-4xl">{resort.name}</h1>
-        <p className="mt-4 text-pine-700">{resort.short}</p>
-        <Link
-          href="/zayavka"
-          className="mt-6 inline-flex rounded-full bg-pine-900 px-6 py-3 text-sm font-semibold text-white hover:bg-pine-700"
-        >
-          Заявка на подбор в {resort.name}
-        </Link>
+      <header className="overflow-hidden rounded-3xl border border-pine-100/80 bg-pine-900 shadow-lg">
+        <div className="relative aspect-[21/9] min-h-[200px] w-full md:aspect-[24/9] md:min-h-[260px]">
+          <Image
+            src={resort.coverImage}
+            alt={resort.coverImageAlt}
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="(max-width: 768px) 100vw, min(1200px, 100vw)"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-pine-950/90 via-pine-950/35 to-transparent" aria-hidden />
+          <div className="absolute inset-x-0 bottom-0 p-5 md:p-8">
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/90">
+              {SITE_NAME} · Курорты Абхазии
+            </p>
+            <h1 className="mt-2 max-w-3xl text-3xl font-semibold text-white md:text-4xl">{resort.name}</h1>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/95 md:text-base">{resort.short}</p>
+            <Link
+              href="/zayavka"
+              className="mt-6 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-pine-900 shadow-md hover:bg-pine-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Заявка на подбор в {resort.name}
+            </Link>
+          </div>
+        </div>
       </header>
 
       <section className="rounded-2xl border border-pine-100 bg-white p-6 shadow-sm" aria-labelledby="why-resort">
