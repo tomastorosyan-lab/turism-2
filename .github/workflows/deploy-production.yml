@@ -11,11 +11,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      PROJECT_DIR: /opt/abkhaziatrip.ru
-      GIT_BARE_DIR: /opt/git/abkhaziatrip.git
-      NGINX_TRIP_CONF: /etc/nginx/sites-available/abkhaziatrip.conf
-      NGINX_HUB_CONF: /etc/nginx/sites-available/abkhazhub.conf
     steps:
       - name: Deploy on server via SSH
         uses: appleboy/ssh-action@v1.2.0
@@ -27,6 +22,11 @@ jobs:
           script_stop: true
           script: |
             set -euo pipefail
+            # Пути задаём здесь: env job GitHub не попадает в сессию appleboy/ssh-action.
+            PROJECT_DIR=/opt/abkhaziatrip.ru
+            GIT_BARE_DIR=/opt/git/abkhaziatrip.git
+            NGINX_TRIP_CONF=/etc/nginx/sites-available/abkhaziatrip.conf
+            NGINX_HUB_CONF=/etc/nginx/sites-available/abkhazhub.conf
 
             echo "[1/8] Safety checks: required paths"
             test -d "$PROJECT_DIR"
