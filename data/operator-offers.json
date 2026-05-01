@@ -1,0 +1,38 @@
+[
+  {
+    "id": "offer-sea-1",
+    "operatorId": "op-sea-sun",
+    "title": "Гагра Family 7N",
+    "description": "Описание уточняется туроператором.",
+    "image": "/tour-placeholder.svg",
+    "resort": "Гагра",
+    "nights": 7,
+    "price": 72400,
+    "availability": "available",
+    "updatedAt": "2026-04-30T16:18:56.442Z"
+  },
+  {
+    "id": "offer-sea-2",
+    "operatorId": "op-sea-sun",
+    "title": "Сухум Premium 8N",
+    "description": "Описание уточняется туроператором.",
+    "image": "/tour-placeholder.svg",
+    "resort": "Сухум",
+    "nights": 8,
+    "price": 161000,
+    "availability": "limited",
+    "updatedAt": "2026-04-30T16:18:56.442Z"
+  },
+  {
+    "id": "offer-mountain-1",
+    "operatorId": "op-mountain",
+    "title": "Пицунда Budget 6N",
+    "description": "Описание уточняется туроператором.",
+    "image": "/tour-placeholder.svg",
+    "resort": "Пицунда",
+    "nights": 6,
+    "price": 54900,
+    "availability": "available",
+    "updatedAt": "2026-04-30T16:18:56.442Z"
+  }
+]

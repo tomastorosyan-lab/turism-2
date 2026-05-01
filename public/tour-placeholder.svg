@@ -1,0 +1,13 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" fill="#E9F3EF"/>
+  <rect x="40" y="40" width="1120" height="620" rx="24" fill="#1F5A44"/>
+  <circle cx="260" cy="240" r="90" fill="#FFFFFF" fill-opacity="0.85"/>
+  <path d="M140 520L310 340L430 470L590 300L810 520H140Z" fill="#FFFFFF" fill-opacity="0.28"/>
+  <path d="M420 520L560 390L670 480L790 360L1060 520H420Z" fill="#FFFFFF" fill-opacity="0.4"/>
+  <text x="120" y="120" fill="white" font-family="Arial, sans-serif" font-size="40" font-weight="700">
+    AbkhaziaTrip
+  </text>
+  <text x="120" y="170" fill="white" font-family="Arial, sans-serif" font-size="26">
+    "C@ 2 1E078N
+  </text>
+</svg>
