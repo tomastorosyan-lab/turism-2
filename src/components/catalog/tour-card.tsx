@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { CatalogTour } from "@/lib/catalog";
 import { formatApproxSold, formatRub } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
+import { TourCoverImage } from "@/components/catalog/tour-cover-image";
 
 function availabilityLabel(a: CatalogTour["availability"]): string {
   if (a === "available") return "Есть места";
@@ -17,9 +17,9 @@ export function TourCard({ tour }: { tour: CatalogTour }) {
     <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition hover:-translate-y-px hover:shadow-[0_4px_14px_rgba(0,0,0,0.08)]">
       <Link href={`/booking/${tour.id}`} className="flex flex-1 flex-col outline-none focus-visible:ring-2 focus-visible:ring-pine-600 focus-visible:ring-offset-2">
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
-          <Image
+          <TourCoverImage
             src={tour.image || "/tour-placeholder.svg"}
-            alt=""
+            alt={tour.title}
             width={480}
             height={360}
             className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
