@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createBooking } from "@/lib/bookings";
 import { formatRub } from "@/lib/data";
@@ -31,6 +32,19 @@ export default async function BookingPage({ params }: Props) {
 
   return (
     <div className="grid gap-6">
+      <nav aria-label="Хлебные крошки" className="text-sm text-zinc-600">
+        <ol className="flex flex-wrap items-center gap-1.5">
+          <li>
+            <Link href={`/tury/${selectedTour.id}`} className="text-pine-700 underline-offset-2 hover:underline">
+              Страница тура
+            </Link>
+          </li>
+          <li aria-hidden className="text-zinc-400">
+            /
+          </li>
+          <li className="font-medium text-zinc-900">Бронирование</li>
+        </ol>
+      </nav>
       <h1 className="text-3xl font-semibold text-pine-900">Бронирование тура</h1>
       <article className="rounded-xl border border-pine-100 bg-white p-5">
         <h2 className="text-xl font-semibold text-pine-900">{selectedTour.title}</h2>

@@ -12,10 +12,15 @@ function availabilityLabel(a: CatalogTour["availability"]): string {
 
 export function TourCard({ tour }: { tour: CatalogTour }) {
   const soldOut = tour.availability === "sold_out";
+  const detailHref = `/tury/${tour.id}`;
+  const bookingHref = `/booking/${tour.id}`;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition hover:-translate-y-px hover:shadow-[0_4px_14px_rgba(0,0,0,0.08)]">
-      <Link href={`/booking/${tour.id}`} className="flex flex-1 flex-col outline-none focus-visible:ring-2 focus-visible:ring-pine-600 focus-visible:ring-offset-2">
+    <article className="flex h-full flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition hover:-translate-y-px hover:shadow-[0_4px_14px_rgba(0,0,0,0.08)]">
+      <Link
+        href={detailHref}
+        className="group flex min-h-0 flex-1 flex-col outline-none focus-visible:ring-2 focus-visible:ring-pine-600 focus-visible:ring-offset-2"
+      >
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-100">
           <TourCoverImage
             src={tour.image || "/tour-placeholder.svg"}
@@ -48,10 +53,8 @@ export function TourCard({ tour }: { tour: CatalogTour }) {
             </Badge>
           </div>
         </div>
-        <div className="flex flex-1 flex-col px-3 pb-3 pt-2.5 sm:px-3.5 sm:pb-3.5 sm:pt-3">
-          <p className="text-[11px] font-medium leading-snug text-zinc-500 sm:text-xs">
-            {tour.cardTags.join(" · ")}
-          </p>
+        <div className="flex flex-1 flex-col px-3 pb-3 pt-2.5 sm:px-3.5 sm:pb-3 sm:pt-3">
+          <p className="text-[11px] font-medium leading-snug text-zinc-500 sm:text-xs">{tour.cardTags.join(" · ")}</p>
           <h3 className="mt-1.5 text-[15px] font-semibold leading-snug text-zinc-900 sm:text-base">{tour.title}</h3>
           <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-zinc-600 sm:text-[13px]">{tour.description}</p>
           <div className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-800">
@@ -68,12 +71,29 @@ export function TourCard({ tour }: { tour: CatalogTour }) {
               <p className="text-lg font-bold leading-none text-zinc-900 sm:text-xl">{formatRub(tour.price)}</p>
               <p className="mt-0.5 text-[11px] text-zinc-500">{tour.nights} ночей</p>
             </div>
-            <span className="rounded-lg bg-pine-900 px-4 py-2 text-center text-xs font-semibold text-white sm:text-sm">
-              Забронировать
+            <span className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-center text-xs font-semibold text-pine-800 sm:text-sm">
+              Подробнее
             </span>
           </div>
         </div>
       </Link>
+      <div className="border-t border-zinc-100 bg-zinc-50/60 px-3 py-2.5 sm:px-3.5">
+        {soldOut ? (
+          <Link
+            href="/zayavka"
+            className="flex min-h-[44px] w-full items-center justify-center rounded-lg border border-pine-600 bg-white px-4 text-sm font-semibold text-pine-900 transition hover:bg-pine-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-pine-600 focus-visible:ring-offset-2"
+          >
+            Уточнить альтернативы
+          </Link>
+        ) : (
+          <Link
+            href={bookingHref}
+            className="flex min-h-[44px] w-full items-center justify-center rounded-lg bg-pine-900 px-4 text-sm font-semibold text-white transition hover:bg-pine-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-pine-600 focus-visible:ring-offset-2"
+          >
+            Забронировать
+          </Link>
+        )}
+      </div>
     </article>
   );
 }

@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
 import { blogPosts, resorts } from "@/lib/data";
+import { listCatalogTours } from "@/lib/catalog";
 import { SITE_URL } from "@/lib/brand";
 
 const base = SITE_URL;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/tury-abkhazia",
@@ -40,5 +41,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...resortRoutes, ...blogRoutes];
+  const tours = await listCatalogTours();
+  const tourRoutes = tours.map((t) => ({
+    url: `${base}/tury/${t.id}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.75,
+  }));
+
+  return [...staticRoutes, ...resortRoutes, ...blogRoutes, ...tourRoutes];
 }

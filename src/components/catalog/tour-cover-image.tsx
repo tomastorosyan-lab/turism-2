@@ -7,6 +7,8 @@ type Props = {
   width?: number;
   height?: number;
   sizes?: string;
+  /** LCP на странице тура — только для первого экрана. */
+  priority?: boolean;
 };
 
 /**
@@ -20,16 +22,33 @@ export function TourCoverImage({
   width = 640,
   height = 480,
   sizes,
+  priority = false,
 }: Props) {
   const trimmed = src?.trim() || "/tour-placeholder.svg";
   const useNative =
     /^https?:\/\//i.test(trimmed) || trimmed.startsWith("//") || trimmed.startsWith("data:");
   if (useNative) {
-    /* next/image: хосты неизвестны заранее; оптимизация через API невозможна без remotePatterns. */
-    // eslint-disable-next-line @next/next/no-img-element -- внешние URL из кабинета партнёра
-    return <img src={trimmed} alt={alt} className={className} loading="lazy" decoding="async" />;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- произвольные внешние URL (нет remotePatterns)
+      <img
+        src={trimmed}
+        alt={alt}
+        className={className}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={priority ? "high" : undefined}
+      />
+    );
   }
   return (
-    <Image src={trimmed} alt={alt} width={width} height={height} className={className} sizes={sizes} />
+    <Image
+      src={trimmed}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      sizes={sizes}
+      priority={priority}
+    />
   );
 }

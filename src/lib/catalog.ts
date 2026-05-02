@@ -151,6 +151,12 @@ export async function listCatalogTours(): Promise<CatalogTour[]> {
   return offers.map(offerToCatalogTour);
 }
 
+/** Одна карточка каталога по id оффера — для страницы тура и метаданных. */
+export async function getCatalogTourById(id: string): Promise<CatalogTour | null> {
+  const list = await listCatalogTours();
+  return list.find((t) => t.id === id) ?? null;
+}
+
 export type CatalogDuration = "" | "lte5" | "6to7" | "gte8";
 
 export type CatalogQuery = {
