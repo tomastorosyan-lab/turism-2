@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="ru"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-100 text-zinc-900 antialiased">
+      <body className="bg-background text-foreground flex min-h-full flex-col antialiased">
         <SiteHeader />
         <main className="mx-auto w-full max-w-[1320px] flex-1 px-4 py-6 md:px-6 md:py-8">{children}</main>
         <Footer />

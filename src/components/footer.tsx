@@ -22,7 +22,7 @@ const colLegal = [
 
 export function Footer() {
   return (
-    <footer className="mt-12 border-t border-zinc-200 bg-white">
+    <footer className="border-border mt-12 border-t bg-white">
       <div className="mx-auto grid w-full max-w-[1320px] gap-10 px-4 py-12 md:grid-cols-2 md:px-6 lg:grid-cols-4">
         <div>
           <p className="font-bold text-zinc-900">{SITE_NAME}</p>
